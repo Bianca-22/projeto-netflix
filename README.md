@@ -3,7 +3,7 @@
 </p>
 
 ## Descrição do projeto
-Essa API foi inspirada na plataforma de streaming Netflix, feita para armazenar os filmes, os participantes do filme e o genêro do filme.
+Essa API foi inspirada na plataforma de streaming Netflix, feita para armazenar os filmes, os participantes do filme e o genero do filme.
 
 Foi utilizado Typescript, NestJs e o banco de dados do MySQL. Foram criadas 3 (três) tabelas no banco MySQL que tem o relacionamento OneToMany.
 
