@@ -1,0 +1,47 @@
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
+import { CreateFilmeDto } from './dto/create-filme.dto';
+import { FilmesService } from './filmes.service';
+import { Filme } from '.prisma/client';
+
+@Controller('filmes')
+export class FilmesController {
+  constructor(private filmesServer: FilmesService) {}
+
+  @Post('/create')
+  @UsePipes(ValidationPipe)
+  async create(@Body() createFilme: CreateFilmeDto): Promise<Filme> {
+    return this.filmesServer.createFilme(createFilme);
+  }
+
+  @Get('/list')
+  @UsePipes(ValidationPipe)
+  async findMany(): Promise<Filme[]> {
+    return this.filmesServer.getAll();
+  }
+
+  @Delete('/delete/:id')
+  @UsePipes(ValidationPipe)
+  async delete(@Param('id') id: string) {
+    return this.filmesServer.deleteOneFilme({ id: Number(id) });
+  }
+
+  @Put('/update/:id')
+  @UsePipes(ValidationPipe)
+  async update(
+    @Body() updateFilme: CreateFilmeDto,
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<Filme> {
+    return this.filmesServer.updateOneFilme(id, updateFilme);
+  }
+}
